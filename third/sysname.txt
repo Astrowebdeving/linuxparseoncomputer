@@ -1,0 +1,5 @@
+tmpfs
+tmpfs
+tmpfs
+/dev/sda1
+tmpfs

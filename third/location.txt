@@ -1,0 +1,5 @@
+/run
+/dev/shm
+/run/lock
+/boot/efi
+/run/user/1000
