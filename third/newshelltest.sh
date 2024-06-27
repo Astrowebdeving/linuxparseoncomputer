@@ -2,26 +2,26 @@
 touch storage.txt
 touch storage.csv
 touch updatedstorage.csv
+macaddress=$(ip -o link show dev eno1 | grep -Po 'ether \K[^ ]*')
 dateinfo=$(date)
 echo $dateinfo
 
 df -m | grep t | cat> storage.txt
 awk '{OFS=","};NR>1 {print $1,$2,$3,$4,$5,$NF}' storage.txt > storage.csv
 awk -v data="$dateinfo" -F"," 'BEGIN{OFS = ","}{$7=data; print}' storage.csv > updatedstorage.csv
-touch sysname.txt
-touch overallstorage.txt
-touch amountused.txt
-touch amountavailabe.txt
-touch usage.txt
-touch location.txt
-touch date.txt
+touch "sysname_${macaddress}.txt"
+touch "overallstorage_${macaddress}.txt"
+touch "amountused_${macaddress}.txt"
+touch "amountavailable_${macaddress}.txt"
+touch "usage_${macaddress}.txt"
+touch "location_${macaddress}.txt"
+touch "date_${macaddress}.txt"
 cat amountused.txt
-awk 'NR>1 {print $1}' storage.txt > sysname.txt
-awk 'NR>1 {print $2}' storage.txt > overallstorage.txt
-awk 'NR>1 {print $3}' storage.txt > amountused.txt
-awk 'NR>1 {print $4}' storage.txt > amountavailable.txt
-awk 'NR>1 {print $5}' storage.txt > usage.txt
-awk 'NR>1 {print $6}' storage.txt > location.txt
-awk -F"," 'NR>1 {print $7}' updatedstorage.csv > date.txt
-python3 newpylink.txt
+awk 'NR>1 {print $1}' storage.txt > "sysname_${macaddress}.txt"
+awk 'NR>1 {print $2}' storage.txt > "overallstorage_${macaddress}.txt"
+awk 'NR>1 {print $3}' storage.txt > "amountused_${macaddress}.txt"
+awk 'NR>1 {print $4}' storage.txt > "amountavailable_${macaddress}.txt"
+awk 'NR>1 {print $5}' storage.txt > "usage_${macaddress}.txt"
+awk 'NR>1 {print $6}' storage.txt > "location_${macaddress}.txt"
+awk -F"," 'NR>1 {print $7}' updatedstorage.csv > "date_${macaddress}.txt" 
 
