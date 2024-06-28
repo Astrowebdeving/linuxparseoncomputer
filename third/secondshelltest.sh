@@ -5,7 +5,7 @@ macaddress=$(ip -o link show dev eno1 | grep -Po 'ether \K[^ ]*')
 touch "updatedstorage3_${macaddress}.csv"
 dateinfo=$(date)
 
-top -n 1 | sed -n '/PID/,$p' | grep -v top | grep s |  cat > storage3.txt
+top -bn 1 | sed -n '/PID/,$p' | grep -v top | grep s |  cat > storage3.txt
 awk '{OFS=","};NR>1 {print $1,$2,$3,$9,$10,$13}' storage3.txt > storage3.csv
 awk -v data="$dateinfo" -F"," 'BEGIN{OFS = ","}{$7=data; print}' storage3.csv > "updatedstorage3_${macaddress}.csv"
 touch "sPID_${macaddress}.txt"
